@@ -2,22 +2,21 @@ namespace TestesUnitarios.Desafio.Console.Services
 {
     public class ValidacoesLista
     {
-        public List<int> RemoverNumerosNegativos(List<int> lista)
+        public IEnumerable<int> RemoverNumerosNegativos(List<int> lista)
         {
-            var listaSemNegativos = lista.Where(x => x > 0);
-            return listaSemNegativos.ToList();
+            // Evite criação de lista desnecessária
+            return lista.Where(x => x > 0);
         }
 
         public bool ListaContemDeterminadoNumero(List<int> lista, int numero)
         {
-            var contem = lista.Contains(numero);
-            return contem;
+            return lista.Contains(numero);
         }
 
-        public List<int> MultiplicarNumerosLista(List<int> lista, int numero)
+        public IEnumerable<int> MultiplicarNumerosPor2(List<int> lista)
         {
-            var listaMultiplicada = lista.Select(x => x * numero).ToList();
-            return listaMultiplicada;
+            // Evite criação de lista desnecessária
+            return lista.Select(x => x * 2);
         }
 
         public int RetornarMaiorNumeroLista(List<int> lista)

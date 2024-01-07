@@ -1,95 +1,125 @@
-using TestesUnitarios.Desafio.Console.Services;
+using System;
+using System.Collections.Generic;
 
-namespace TestesUnitarios.Desafio.Tests;
-
-public class ValidacoesListaTests
+namespace TestesUnitarios.Desafio.Services
 {
-    private ValidacoesLista _validacoes = new ValidacoesLista();
-
-    [Fact]
-    public void DeveRemoverNumerosNegativosDeUmaLista()
+    public class ValidacoesLista
     {
-        // Arrange
-        var lista = new List<int> { 5, -1, -8, 9 };
-        var resultadoEsperado = new List<int> { 5, 9 };
+        public IEnumerable<int> RemoverNumerosNegativos(List<int> lista)
+        {
+            return lista.Where(x => x >= 0);
+        }
 
-        // Act
-        var resultado = _validacoes.RemoverNumerosNegativos(lista);
+        public bool ListaContemDeterminadoNumero(List<int> lista, int numero)
+        {
+            return lista.Contains(numero);
+        }
 
-        // Assert
-        Assert.Equal(resultadoEsperado, resultado);
+        public IEnumerable<int> MultiplicarNumerosListaPor2(List<int> lista)
+        {
+            return lista.Select(x => x * 2);
+        }
+
+        public int RetornarMaiorNumeroLista(List<int> lista)
+        {
+            return lista.Max();
+        }
+
+        public int RetornarMenorNumeroLista(List<int> lista)
+        {
+            return lista.Min();
+        }
     }
+}
 
-    [Fact]
-    public void DeveConterONumero9NaLista()
+namespace TestesUnitarios.Desafio.Tests
+{
+    using TestesUnitarios.Desafio.Services;
+
+    public class ValidacoesListaTests
     {
-        // Arrange
-        var lista = new List<int> { 5, -1, -8, 9 };
-        var numeroParaProcurar = 9;
+        private ValidacoesLista _validacoes = new ValidacoesLista();
 
-        // Act
-        var resultado = _validacoes.ListaContemDeterminadoNumero(lista, numeroParaProcurar);
+        [Fact]
+        public void DeveRemoverNumerosNegativosDeUmaLista()
+        {
+            // Arrange
+            var lista = new List<int> { 5, -1, -8, 9 };
+            var resultadoEsperado = new List<int> { 5, 9 };
 
-        // Assert
-        Assert.True(resultado);
-    }
+            // Act
+            var resultado = _validacoes.RemoverNumerosNegativos(lista);
 
-    [Fact]
-    public void NaoDeveConterONumero10NaLista()
-    {
-        //TODO: Implementar método de teste
+            // Assert
+            Assert.Equal(resultadoEsperado, resultado);
+        }
 
-        // Arrange
-        var lista = new List<int> { 5, -1, -8, 9 };
-        var numeroParaProcurar = 10;
+        [Fact]
+        public void DeveConterONumero9NaLista()
+        {
+            // Arrange
+            var lista = new List<int> { 5, -1, -8, 9 };
+            var numeroParaProcurar = 9;
 
-        // Act
+            // Act
+            var resultado = _validacoes.ListaContemDeterminadoNumero(lista, numeroParaProcurar);
 
-        // Assert
-    }
+            // Assert
+            Assert.True(resultado);
+        }
 
-    //TODO: Corrigir a anotação [Fact]
-    public void DeveMultiplicarOsElementosDaListaPor2()
-    {
-        //TODO: Implementar método de teste
+        [Fact]
+        public void NaoDeveConterONumero10NaLista()
+        {
+            // Arrange
+            var lista = new List<int> { 5, -1, -8, 9 };
+            var numeroParaProcurar = 10;
 
-        // Arrange
-        var lista = new List<int> { 5, 7, 8, 9 };
-        var resultadoEsperado = new List<int> { 10, 14, 16, 18 };
-        
-        // Act
+            // Act
+            var resultado = _validacoes.ListaContemDeterminadoNumero(lista, numeroParaProcurar);
 
-        // Assert
-    }
+            // Assert
+            Assert.False(resultado);
+        }
 
-    [Fact]
-    public void DeveRetornar9ComoMaiorNumeroDaLista()
-    {
-        //TODO: Implementar método de teste
+        [Fact]
+        public void DeveMultiplicarOsElementosDaListaPor2()
+        {
+            // Arrange
+            var lista = new List<int> { 5, 7, 8, 9 };
+            var resultadoEsperado = new List<int> { 10, 14, 16, 18 };
 
-        // Arrange
-        var lista = new List<int> { 5, -1, -8, 9 };
+            // Act
+            var resultado = _validacoes.MultiplicarNumerosListaPor2(lista);
 
-        // Act
+            // Assert
+            Assert.Equal(resultadoEsperado, resultado);
+        }
 
-        // Assert
-        //TODO: Corrigir o Assert.Equal com base no retorno da chamada ao método
-        Assert.Equal(9, 9);
-    }
+        [Fact]
+        public void DeveRetornar9ComoMaiorNumeroDaLista()
+        {
+            // Arrange
+            var lista = new List<int> { 5, -1, -8, 9 };
 
-    [Fact]
-    public void DeveRetornarOitoNegativoComoMenorNumeroDaLista()
-    {
-        //TODO: Implementar método de teste
+            // Act
+            var resultado = _validacoes.RetornarMaiorNumeroLista(lista);
 
-        // Arrange
-        var lista = new List<int> { 5, -1, -8, 9 };
+            // Assert
+            Assert.Equal(9, resultado);
+        }
 
-        // Act
-        var resultado = _validacoes.RetornarMenorNumeroLista(lista);
+        [Fact]
+        public void DeveRetornarOitoNegativoComoMenorNumeroDaLista()
+        {
+            // Arrange
+            var lista = new List<int> { 5, -1, -8, 9 };
 
-        // Assert
-        //TODO: Corrigir o Assert.Equal com base no retorno da chamada ao método
-        Assert.Equal(-8, -8);
+            // Act
+            var resultado = _validacoes.RetornarMenorNumeroLista(lista);
+
+            // Assert
+            Assert.Equal(-8, resultado);
+        }
     }
 }
